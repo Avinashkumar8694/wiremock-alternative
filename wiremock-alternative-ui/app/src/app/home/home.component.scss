@@ -1,0 +1,110 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #303f9f;
+  color: white;
+  padding: 16px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 64px;
+}
+
+.dashboard-title {
+  font-size: 24px;
+}
+
+.dashboard-actions {
+  display: flex;
+  align-items: center;
+}
+
+.dashboard-content {
+  flex-grow: 1;
+  overflow: auto;
+  padding: 16px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+mat-icon-button {
+  margin-right: 8px;
+}
+
+@media screen and (max-width: 600px) {
+  .dashboard-header {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 96px;
+  }
+
+  .dashboard-title {
+    margin-bottom: 8px;
+  }
+}
+
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+mat-icon {
+  font-size: 24px;
+}
+
+mat-sidenav {
+  flex-basis: 13rem;
+  width: 0rem; //set to 13rem to display the sidenav
+  padding: 0px; //set to 1rem to display the sidenav
+  background-color: #fafafa;
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+}
+
+.dashboard-header {
+  background-color: #1976d2;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-title {
+  font-size: 24px;
+  font-weight: 500;
+  margin-left: 16px;
+}
+
+.dashboard-actions {
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+}

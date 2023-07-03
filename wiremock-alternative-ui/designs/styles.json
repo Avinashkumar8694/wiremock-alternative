@@ -1,0 +1,10 @@
+{
+    "classes": [
+        "container-fluid",
+        "row",
+        "navbar-nav",
+        "nav-link",
+        "active",
+        "navbar-brand"
+    ]
+}

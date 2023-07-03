@@ -1,0 +1,40 @@
+<form (ngSubmit)="onSubmit()" *ngIf="mockApi" class="form add_api">
+  <div class="form-group">
+    <label for="path">Endpoint:</label>
+    <input type="text" class="form-control" id="path" name="path" [(ngModel)]="mockApi.path">
+  </div>
+  <div class="form-group">
+    <label for="method">Method:</label>
+    <select class="form-control" id="method" name="method" [(ngModel)]="mockApi.method">
+      <option value="GET">GET</option>
+      <option value="POST">POST</option>
+      <option value="PUT">PUT</option>
+      <option value="DELETE">DELETE</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="queryParams">Query Parameters:</label>
+    <textarea class="form-control" id="queryParams" name="queryParams" rows="5" [(ngModel)]="mockApi.queryParams"></textarea>
+  </div>
+  <!-- <div class="form-group">
+    <label for="requestBody">Request Body:</label>
+    <textarea class="form-control" id="requestBody" name="requestBody" rows="5" [(ngModel)]="mockApi.requestBody"></textarea>
+  </div> -->
+  <div class="form-group">
+    <label for="responseStatus">Response Status Code:</label>
+    <input type="number" class="form-control" id="responseStatus" name="responseStatus" [(ngModel)]="mockApi.response.statusCode">
+  </div>
+  <div class="form-group">
+    <label for="responseHeaders">Response Headers:</label>
+    <textarea class="form-control" id="responseHeaders" name="responseHeaders" rows="5" [(ngModel)]="mockApi.response.headers"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="responseBody">Response Body:</label>
+    <textarea class="form-control" id="responseBody" name="responseBody" rows="5" [(ngModel)]="mockApi.response.body"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="responseTemplate">Response Template:</label>
+    <textarea class="form-control" id="responseTemplate" name="responseTemplate" rows="5" [(ngModel)]="mockApi.responseTemplate"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Add Mock API</button>
+</form>

@@ -1,0 +1,13 @@
+{
+    "displayName": "wiremock-alternative-ui",
+    "appName": "wiremock-alternative-ui",
+    "description": "wiremock-alternative-ui",
+    "lastModified": "2023-04-02T16:07:16.347Z",
+    "imgSourcePath": "",
+    "version": "1.0.0",
+    "appType": "uiOnly",
+    "templateName": "blank",
+    "createDate": "2023-04-02T16:07:15.495Z",
+    "analyticsId": "4669a9d2-6222-9e1b-c50f-0c46408ce4a4",
+    "createdStudioVersion": "9.1.3"
+}

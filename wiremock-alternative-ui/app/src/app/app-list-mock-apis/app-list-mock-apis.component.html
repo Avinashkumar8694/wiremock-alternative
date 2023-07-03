@@ -1,0 +1,29 @@
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">URL</th>
+        <th scope="col">HTTP Method</th>
+        <!-- <th scope="col">Response Body</th> -->
+        <th scope="col">Status Code</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mockApi of mockApis; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <th scope="row">{{ mockApi.name }}</th>
+        <td>{{ mockApi.path }}</td>
+        <td>{{ mockApi.method }}</td>
+        <!-- <td>{{ mockApi.responseBody }}</td> -->
+        <td>{{ mockApi.response.statusCode }}</td>
+        <td>
+          <button class="btn btn-sm btn-primary" (click)="editMockApi(mockApi)">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="deleteMockApi(mockApi)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

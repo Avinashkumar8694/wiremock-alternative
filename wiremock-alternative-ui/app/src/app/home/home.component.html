@@ -1,0 +1,52 @@
+{{mockAPIs | json}}
+
+<mat-sidenav-container class="dashboard-container">
+  <mat-sidenav #sidenav mode="side" opened>
+    <h3>User Info</h3>
+    <!-- <p>Username: {{ username }}</p>
+    <p>Email: {{ email }}</p> -->
+  </mat-sidenav>
+  <mat-toolbar class="dashboard-header">
+    <div class="dashboard-title" fxLayout="row" fxLayoutAlign="start center">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <label >Mock API Dashboard</label>
+    </div>
+    <div class="dashboard-actions">
+      <button mat-raised-button color="primary" (click)="openAddMockApiDialog()">Add Mock API</button>
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+  <div class="dashboard-content">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>URL</th>
+          <th>HTTP Method</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let api of mockApis">
+          <td>{{ api._id }}</td>
+          <td>{{ api.path }}</td>
+          <td>{{ api.method }}</td>
+          <td>{{ api.response.statusCode }}</td>
+          <td>
+            <button mat-icon-button color="accent" (click)="openEditMockApiDialog(api)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteMockApi(api)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</mat-sidenav-container>
