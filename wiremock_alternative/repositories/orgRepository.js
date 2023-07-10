@@ -12,3 +12,12 @@ exports.findById = async (orgId) => {
 exports.findByIdAndDelete = async (orgId) => {
   return await Org.findByIdAndDelete(orgId).exec();
 };
+exports.getAllOrgs = async function () {
+  return await Org.find({});
+};
+exports.getOrgByName = async function (orgName) {
+  return await Org.findOne({ name: orgName });
+};
+exports.updateOrgById = async function (orgId, newData) {
+  return await Org.findByIdAndUpdate(orgId, newData, { new: true });
+};

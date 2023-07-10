@@ -2,7 +2,7 @@ const orgRepository = require("../repositories/orgRepository");
 
 exports.addOrg = async (req, res) => {
   try {
-    const org = await orgRepository.addOrg(req.body);
+    const org = await orgRepository.create(req.body);
     res.status(201).json(org);
   } catch (err) {
     res.status(500).send(err);
@@ -20,7 +20,7 @@ exports.getAllOrgs = async (req, res) => {
 
 exports.getOrgById = async (req, res) => {
   try {
-    const org = await orgRepository.getOrgById(req.params.id);
+    const org = await orgRepository.findById(req.params.id);
     if (org) {
       res.status(200).json(org);
     } else {
@@ -46,7 +46,22 @@ exports.updateOrgById = async (req, res) => {
 
 exports.deleteOrgById = async (req, res) => {
   try {
-    const org = await orgRepository.deleteOrgById(req.params.id);
+    const org = await orgRepository.findByIdAndDelete(req.params.id);
+    if (org) {
+      res.status(200).json(org);
+    } else {
+      res.status(404).send("Org not found");
+    }
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+exports.getOrgByName = async (req, res) => {
+  try {
+    if(!req.params.name) {
+      throw new Error("Org name is required")
+    }
+    const org = await orgRepository.getOrgByName(req.params.name);
     if (org) {
       res.status(200).json(org);
     } else {

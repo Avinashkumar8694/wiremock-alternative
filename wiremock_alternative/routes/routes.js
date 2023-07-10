@@ -6,7 +6,16 @@ const {
   getOrgById,
   updateOrgById,
   deleteOrgById,
+  getOrgByName
 } = require("../controllers/orgController");
+const {
+  addDomain,
+  getAllDomain,
+  getDomainById,
+  updateDomainById,
+  deleteDomainById,
+  getDomainByName
+} = require("../controllers/domainController");
 const {
   addUser,
   getAllUsers,
@@ -22,16 +31,25 @@ const {registerRoute, setDefaultResponse, start, getRoutes, getRouteById, update
 // Org Routes
 router.post("/orgs", authenticateToken, addOrg);
 router.get("/orgs", authenticateToken, getAllOrgs);
-router.get("/orgs/:orgId", authenticateToken, getOrgById);
-router.put("/orgs/:orgId", authenticateToken, updateOrgById);
-router.delete("/orgs/:orgId", authenticateToken, deleteOrgById);
+router.get("/orgs/:id", authenticateToken, getOrgById);
+router.put("/orgs/:id", authenticateToken, updateOrgById);
+router.delete("/orgs/:id", authenticateToken, deleteOrgById);
+router.post("/orgs/:name", authenticateToken, getOrgByName);
+
+// Domain Routes
+router.post("/domain", authenticateToken, addDomain);
+router.get("/domains", authenticateToken, getAllDomain);
+router.get("/domains/:id", authenticateToken, getDomainById);
+router.put("/domains/:id", authenticateToken, updateDomainById);
+router.delete("/domains/:id", authenticateToken, deleteDomainById);
+router.post("/domains/:name", authenticateToken, getDomainByName);
 
 // User Routes
 router.post("/users",authenticateToken,  addUser);
 router.get("/users", authenticateToken, getAllUsers);
-router.get("/users/:userId", authenticateToken, getUserById);
-router.put("/users/:userId", authenticateToken, updateUserById);
-router.delete("/users/:userId", authenticateToken, deleteUserById);
+router.get("/users/:id", authenticateToken, getUserById);
+router.put("/users/:id", authenticateToken, updateUserById);
+router.delete("/users/:id", authenticateToken, deleteUserById);
 
 // // Auth Routes
 router.post("/register", register);
