@@ -1,18 +1,10 @@
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
-  username: {
+const domainSchema = new mongoose.Schema({
+  name: {
     type: String,
     required: true,
     unique: true
-  },
-  name: {
-    type: String,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
   },
   org: {
     type: mongoose.Schema.Types.ObjectId,
@@ -29,7 +21,11 @@ const userSchema = new mongoose.Schema({
   createdDate: {
     type: Date,
     default: Date.now
+  },
+  updatedDate: {
+    type: Date,
+    default: Date.now
   }
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Domain', domainSchema);

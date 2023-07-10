@@ -35,8 +35,16 @@ const routeSchema = new mongoose.Schema({
     default: Date.now
   },
   subDomain: {
-    type: String,
-    required: false
+    type: mongoose.Schema.Types.ObjectId,
+    required: false,
+    validate: {
+      validator: async function (value) {
+        const org = await mongoose.model('Domain').findById(value);
+        return org !== null;
+      },
+      message: 'Invalid Domain'
+    }
+    
   }
 });
 
