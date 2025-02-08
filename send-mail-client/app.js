@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+const express = require('express')
 require("dotenv").config();
 
 
@@ -25,7 +26,7 @@ let jobs = [
     id: 'job1',
     expiryDate: new Date('Mon Jul 03 2023 12:35:46 GMT+0530').getTime(),
     timeoutId: null, // Hold the reference to the setTimeout function
-    to: "sagar.v@neutrinos.co",
+    to: "arjunkumargupta108@gmail.com",
     subject: 'abc',
     message:"Hello world?",
     html: "<b>Hello world?</b>"

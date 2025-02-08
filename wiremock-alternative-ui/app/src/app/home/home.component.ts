@@ -12,25 +12,26 @@ import { MatDialog } from "@angular/material/dialog";
 })
 export class HomeComponent implements OnInit {
   mockApis: MockApi[] = [];
+  username: string = "username"
   // @ViewChild('addMockApiDialog') addMockApiDialog!: TemplateRef<any>;
   // @ViewChild('editMockApiDialog') editMockApiDialog!: TemplateRef<any>;
   constructor(private loginService: LoginService, private mockApiService: MockApiService, private dialog: MatDialog) {
-    
+
   }
 
   ngOnInit(): void {
-    this.getMockApis();
+    this.fetchDomains();
   }
-  
-  getMockApis(){
+
+  getMockApis() {
     this.mockApiService.getMockApis().subscribe((mockApis: MockApi[]) => {
       this.mockApis = mockApis;
     });
   }
 
   openAddMockApiDialog(): void {
-    const dialogRef = this.dialog.open(AddMockApiComponent,{
-      data: {edit: false },
+    const dialogRef = this.dialog.open(AddMockApiComponent, {
+      data: { edit: false },
       hasBackdrop: true,
       height: '70vh',
       width: '50vw',
@@ -54,7 +55,7 @@ export class HomeComponent implements OnInit {
 
   openEditMockApiDialog(mockApi: MockApi): void {
     const dialogRef = this.dialog.open(AddMockApiComponent, {
-      data: {...mockApi, edit: true},
+      data: { ...mockApi, edit: true },
       hasBackdrop: true,
       height: '70vh',
       width: '50vw',
@@ -73,5 +74,59 @@ export class HomeComponent implements OnInit {
         this.mockApis = this.mockApis.filter(m => m._id !== mockApi._id);
       });
     }
+  }
+
+
+  fetchDomains(): void {
+    this.http.get<any[]>('http://api.127-0-0-1.nip.io:8888/domains').subscribe(
+      (response) => {
+        this.domains = response;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+
+  deleteDomain(domainId: string): void {
+    if (confirm('Are you sure you want to delete this domain?')) {
+      const url = `http://api.127-0-0-1.nip.io:8888/domains/${domainId}`;
+      this.http
+        .delete(url)
+        .subscribe(
+          () => {
+            this.fetchDomains();
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
+    }
+  }
+
+  createNewAPI(): void {
+    const currentDomain = window.location.hostname;
+    const randomText = Math.random().toString(36).substring(7);
+
+    const url = 'http://api.127-0-0-1.nip.io:8888/domain';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImF2aW5hc2hAZ21haWwuY29tIiwib3JnYW5pemF0aW9uIjoibmV1dHJpbm9zIiwiaWF0IjoxNjg4OTg2MDQxLCJleHAiOjE2ODg5ODY5NDF9.mhq21AvJAeBAXB-Z_EKhMC9bjVDLSdrcfwvGXC7a40g'
+    });
+
+    const body = {
+      name: `${randomText}.${currentDomain}`,
+      org: '6427bbb7c78044ec91c0e2a9' // Replace with the actual org ID from the logged-in user info
+    };
+
+    this.http.post(url, body, { headers }).subscribe(
+      (response) => {
+        console.log('New API created:', response);
+        this.fetchDomains();
+      },
+      (error) => {
+        console.error('Error creating new API:', error);
+      }
+    );
   }
 }

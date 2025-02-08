@@ -1,4 +1,6 @@
 const express = require("express");
+const fetch = require('node-fetch');
+const { Headers } = fetch;
 const router = express.Router();
 const {
   addOrg,
@@ -27,6 +29,7 @@ const { register, login } = require("../controllers/authController");
 const authenticateToken = require("../middleware/authenticateToken");
 const {registerRoute, setDefaultResponse, start, getRoutes, getRouteById, updateRouteById,deleteRouteById} = require("../mockServer/mockServer");
 
+const { generateText, generateImage } = require("../controllers/pollinations");
 
 // Org Routes
 router.post("/orgs", authenticateToken, addOrg);
@@ -54,6 +57,79 @@ router.delete("/users/:id", authenticateToken, deleteUserById);
 // // Auth Routes
 router.post("/register", register);
 router.post("/login", login);
+
+
+
+router.post("/generateText", async (req, res) =>{
+  try{
+
+    const { message } = req.body;
+    const myHeaders = new Headers();
+    // res.status(200).json({ message: message });
+    myHeaders.append("Content-Type", "application/json");
+    const raw = JSON.stringify({
+      "message": message
+    });
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+     fetch("http://127.0.0.1:5000/generateText", requestOptions)
+     .then(response => response.text())
+     .then(result => {
+        res.status(200).json({ message: JSON.parse(result) });
+      }).catch(error => {
+        res.status(403).json({ message: e.message });
+      });
+    // const result = await fetch("http://127.0.0.1:5000/generateText", requestOptions)
+    // console.log(result.body.text())
+    // res.status(200).json({ message: result });
+
+  } catch (e){
+    res.status(403).json({ message: e.message });
+  }
+});
+router.post("/generateImage", async (req, res) =>{
+  try{
+
+    const { message } = req.body;
+    const myHeaders = new Headers();
+    // res.status(200).json({ message: message });
+    myHeaders.append("Content-Type", "application/json");
+    const raw = JSON.stringify({
+      "message": message
+    });
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+     fetch("http://localhost:5000/generateImage", requestOptions)
+     .then(response =>  response.buffer())
+     .then(result => {
+      res.setHeader('Content-Type', 'image/png'); // Change this to the correct image content type if needed
+      res.status(200).send(result);
+      })
+      .catch(error => {
+        res.status(403).json({ message: error.message });
+      });
+    // const result = await fetch("http://127.0.0.1:5000/generateText", requestOptions)
+    // console.log(result.body.text())
+    // res.status(200).json({ message: result });
+
+  } catch (e){
+    res.status(403).json({ message: e.message });
+  }
+});
+
+router.post("/generate/text",authenticateToken, generateText);
+router.post("/generate/image",authenticateToken, generateImage);
+
+
+
 
 // Add Dynamic Routes
 // Define the API to register a new route
