@@ -31,6 +31,8 @@ const {registerRoute, setDefaultResponse, start, getRoutes, getRouteById, update
 
 const { generateText, generateImage } = require("../controllers/pollinations");
 
+const { generateChat } = require("../controllers/openai");
+
 // Org Routes
 router.post("/orgs", authenticateToken, addOrg);
 router.get("/orgs", authenticateToken, getAllOrgs);
@@ -127,6 +129,8 @@ router.post("/generateImage", async (req, res) =>{
 
 router.post("/generate/text",authenticateToken, generateText);
 router.post("/generate/image",authenticateToken, generateImage);
+
+router.post("/generate/chat",authenticateToken, generateChat);
 
 
 
